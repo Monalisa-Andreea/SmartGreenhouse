@@ -1,0 +1,84 @@
+﻿@model SmartGarden.Models.WaterLevelViewModel
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "Water Level Sensor";
+}
+
+@{
+    const int minimValue = 100;
+    const int min = 0;
+    const int max = 500;
+ }
+
+@section scripts{
+    <script>
+    var ctx = $('#myChartW');
+        new Chart(ctx, {
+            "type": "line",
+            "data": {
+                "labels": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToInt32(s.Id)).ToArray()),
+                "datasets": [{ "label": "Water Level Dataset", "data": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToInt32(s.Value)).ToArray()), "fill": false, "borderColor": "#7B0828", "lineTension": 0.1 }]
+            },
+            "options": {}
+        });
+    </script>
+}
+
+<div class="container-fluid pageDiv">
+    <div class="title">
+        <h1> @ViewData["Title"] </h1>
+        <br />
+        <h4>Current date:</h4>
+        <h6>@Model.CurrentDate</h6>
+    </div>
+
+    <div class="tableDiv">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Name of sensor</th>
+                    <th>Current value</th>
+                    <th>Date of registration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewData["Title"]</td>
+                    <td>@Model.Sensor.Value</td>
+                    <td>@Model.Sensor.CurrentDate</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableDiv">
+    <h6>Value range:</h6>
+    @if (Model.Sensor.Value < minimValue)
+    {
+    <p>
+        @min  <progress class="second" value="@Convert.ToInt32(Model.Sensor.Value)" max="@max"> </progress> @max
+    </p>
+
+    }
+    else
+    {
+    <p>
+        @min  <progress class="first" value="@Convert.ToInt32(Model.Sensor.Value)" max="@max"></progress> @max
+    </p>
+    }
+
+</div>
+
+    <div class="chart">
+        <canvas id="myChartW"></canvas>
+
+    </div>
+
+    @if (@Model.Sensor.Value <= minimValue)
+    {
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> The pump container is empty.
+        </div>
+    }
+</div>
