@@ -1,0 +1,134 @@
+
+#footer {
+    /*position:absolute;*/
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(4, 85, 38);
+    padding-top:inherit;
+    margin-top:auto;
+}
+
+
+
+/*// de aici stiu ce se intampla*/
+body {
+    background-color: #F7FFE0;
+}
+
+.nav-color {
+    background-color: #0B2027;
+}
+
+.logo {
+    padding: 2px;
+    width: 100px;
+    margin: auto;
+}
+
+.link-navbar {
+    font-weight: 500;
+}
+
+.drop-color {
+    background-color: #F7FFE0;
+}
+
+.drop-color a:hover {
+    background-color: #0B2027;
+    color: white;
+}
+
+.indexDiv {
+    text-align:center;
+    margin:auto;
+    margin-top: 30px;
+    padding:15px;
+}
+
+.carouselDiv {
+    margin: auto;
+    margin-top: 30px;
+    padding: 30px;
+}
+
+.carouselImg {
+    width:400px;
+    height:500px;
+}
+
+.row-second {
+    margin: auto;
+    padding: 20px;
+}
+
+.text {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 15px;
+    text-align: justify;
+    margin: auto;
+}
+
+.pageDiv {
+    margin:auto;
+    margin-top: 50px;
+    padding:20px;
+}
+
+.title {
+    text-align: center;
+    margin-top: 40px;
+    /*margin: 50px;*/
+    padding: 10px;
+    color: black;
+}
+
+.tableDiv {
+    text-align:center;
+    margin-top:20px;
+    padding:15px;
+}
+
+.colorProgress{
+    /*color: red;*/
+    background-color:wheat;
+}
+
+.chart {/*
+    width:300px;
+    height:300px;*/
+    text-align:center;
+    padding:10px;
+    margin:auto;
+    margin-top:20px;
+    color:red;
+    font-weight:300;
+    font-family:'Times New Roman', Times, serif;
+}
+
+/*progress::-webkit-progress-value {
+    background: blue;
+}*/
+
+progress {
+    border: none;
+    width: 800px;
+    height: 30px;
+   /* background-color: green;*/
+}
+
+
+progress.first::-webkit-progress-value {
+    background: green;
+}
+
+    progress.first::-webkit-progress-bar {
+        background: lightgray;
+    }
+
+progress.second::-webkit-progress-value {
+    background: red;
+}
+
+    progress.second::-webkit-progress-bar {
+        background: lightgray;
+    }   
