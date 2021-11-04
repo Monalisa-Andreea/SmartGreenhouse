@@ -1,0 +1,114 @@
+@model SmartGarden.Models.BarometricSensorViewModel
+@using Newtonsoft.Json
+
+@{
+    ViewData["Title"] = "Barometric Pressure Sensor";
+}
+
+@{
+    const int minimValueT = 30;
+    const int minimValueP = 2000;
+    const int minimValueA = 500;
+    const int min = 0;
+    const int maxT = 100;
+    const int maxP = 100000;
+    const int maxA = 1000;
+}
+
+@section scripts{
+    <script>
+    var ctx = $('#myChart');
+        new Chart(ctx, {
+            "type": "line",
+            "data": {
+                "labels": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToInt32(s.Id)).ToArray()),
+                "datasets": [{ "label": "Temperature Dataset", "data": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToDecimal(s.TemperatureValue)).ToArray()), "fill": false, "borderColor": "#BF4E30", "lineTension": 0.1 },
+                    { "label": "Pressure Dataset", "data": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToDecimal(s.PressureValue)).ToArray()), "fill": false, "borderColor": "rgb(40, 142, 192)", "lineTension": 0.1 },
+                    { "label": "Altitude Dataset", "data": @JsonConvert.SerializeObject(Model.Sensors.Select(s=>Convert.ToDecimal(s.AltitudeValue)).ToArray()), "fill": false, "borderColor": "#0B2027", "lineTension": 0.1 }]
+            },
+            "options": {}
+        });
+    </script>
+}
+<div class="container-fluid pageDiv">
+    <div class="title">
+        <h1> @ViewData["Title"] </h1>
+        <br />
+        <h4>Current date:</h4>
+        <h6>@Model.CurrentDate</h6>
+    </div>
+
+    <div class="tableDiv">
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Name of sensor</th>
+                    <th>Temperature(C) value</th>
+                    <th>Pressure value</th>
+                    <th>Altitude value</th>
+                    <th>Date of registration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewData["Title"]</td>
+                    <td>@Model.Sensor.TemperatureValue</td>
+                    <td>@Model.Sensor.PressureValue</td>
+                    <td>@Model.Sensor.AltitudeValue</td>
+                    <td>@Model.Sensor.CurrentDate</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableDiv">
+        <h6>Value range for temperature:</h6>
+        @if (Model.Sensor.TemperatureValue < minimValueT)
+        {
+    <p>
+        @min  <progress class="first" value="@Convert.ToInt32(Model.Sensor.TemperatureValue)" max="@maxT"></progress> @maxT
+    </p>
+
+        }
+        else
+        {
+    <p>
+        @min  <progress class="second" value="@Convert.ToInt32(Model.Sensor.TemperatureValue)" max="@maxT"></progress> @maxT
+    </p>
+        }
+        <h6>Value range for pressure:</h6>
+        @if (Model.Sensor.PressureValue < minimValueP)
+        {
+    <p>
+        @min  <progress class="first" value="@Convert.ToInt32(Model.Sensor.PressureValue)" max="@maxP"></progress> @maxP
+    </p>
+
+        }
+        else
+        {
+    <p>
+        @min  <progress class="second" value="@Convert.ToInt32(Model.Sensor.PressureValue)" max="@maxP"></progress> @maxP
+    </p>
+        }
+        <h6>Value range for altitude:</h6>
+        @if (Model.Sensor.AltitudeValue < minimValueA)
+        {
+    <p>
+        @min  <progress class="first" value="@Convert.ToInt32(Model.Sensor.AltitudeValue)" max="@maxA"></progress> @maxA
+    </p>
+
+        }
+        else
+        {
+    <p>
+        @min  <progress class="second" value="@Convert.ToInt32(Model.Sensor.AltitudeValue)" max="@maxA"></progress> @maxA
+    </p>
+        }
+
+    </div>
+
+    <div class="chart">
+        <canvas id="myChart"></canvas>
+
+    </div>
+</div>
